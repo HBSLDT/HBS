@@ -228,7 +228,31 @@
   }
 }
 
-</style>
+</style>a {
+  display: block;
+  width: 100% !important;
+  text-align: center;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+@media screen and (max-width: 768px) {
+  a {
+    font-size: 1em;
+    padding: 12px 10px !important;
+    margin: 10px 0 !important;
+  }
+
+  .section {
+    padding: 20px 15px;
+  }
+
+  .section p, .section h2 {
+    word-break: break-word;
+  }
+}
+
 <button id="scrollTopBtn" title="Back to Top">↑</button>
 
 <script>
