@@ -1,21 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>HydraAI Chat Assistant</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>HydraAI Smart Assistant</title>
+  <link rel="stylesheet" href="style.css" />
   <script src="products.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(145deg, #0f0f0f, #1b1b1b);
+      font-family: 'Montserrat', sans-serif;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .chat-box {
+      width: 90%;
+      max-width: 600px;
+      background: #111;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.05);
+      padding: 25px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .chat-header {
+      font-size: 1.8em;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 10px;
+      color: #25d366;
+    }
+
+    #chat-box-content {
+      height: 300px;
+      overflow-y: auto;
+      background: #191919;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 0.95em;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .message {
+      margin-bottom: 12px;
+    }
+
+    .message strong {
+      color: #f0c674;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 10px 15px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1em;
+      outline: none;
+      background: #2b2b2b;
+      color: #fff;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: #25d366;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background: #1fc54e;
+    }
+
+    a {
+      color: #25d366;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-  <div class="chat-container">
-    <h2>🤖 HydraAI Smart Assistant</h2>
-    <div id="chat-box"></div>
-    <input type="text" id="user-input" placeholder="Ask me anything..." onkeydown="if(event.key==='Enter') sendMessage()">
-    <button onclick="sendMessage()">Send</button>
+  <div class="chat-box">
+    <div class="chat-header">🤖 HydraAI Smart Assistant</div>
+    <div id="chat-box-content"></div>
+    <div class="input-row">
+      <input type="text" id="user-input" placeholder="Ask me anything..." onkeydown="if(event.key==='Enter') sendMessage()">
+      <button onclick="sendMessage()">Send</button>
+    </div>
   </div>
 
   <script>
-    const chatBox = document.getElementById("chat-box");
+    const chatBox = document.getElementById("chat-box-content");
 
     function sendMessage() {
       const input = document.getElementById("user-input");
@@ -23,15 +112,14 @@
       if (!msg) return;
       appendMessage("🧍 You", msg);
       input.value = "";
-
-      setTimeout(() => respond(msg), 600);
+      setTimeout(() => respond(msg), 500);
     }
 
     function appendMessage(sender, text) {
-      const message = document.createElement("div");
-      message.className = "chat-message";
-      message.innerHTML = `<strong>${sender}:</strong> ${text}`;
-      chatBox.appendChild(message);
+      const div = document.createElement("div");
+      div.className = "message";
+      div.innerHTML = `<strong>${sender}:</strong> ${text}`;
+      chatBox.appendChild(div);
       chatBox.scrollTop = chatBox.scrollHeight;
     }
 
@@ -39,28 +127,23 @@
       const msg = input.toLowerCase();
 
       if (msg.includes("book")) {
-        appendMessage("🤖 HydraAI", `To book a 1:1 session, click below:<br><a href="${products.glovesUp.paidSession.link}" target="_blank">${products.glovesUp.paidSession.name} – ${products.glovesUp.paidSession.price}</a>`);
+        appendMessage("🤖 HydraAI", `Book a 1:1 now:<br><a href="${products.glovesUp.paidSession.link}" target="_blank">${products.glovesUp.paidSession.name} – ${products.glovesUp.paidSession.price}</a>`);
       } else if (msg.includes("free taster")) {
-        appendMessage("🤖 HydraAI", `Want a free pad session? Click below to book:<br><a href="${products.glovesUp.freeTaster.link}" target="_blank">${products.glovesUp.freeTaster.name}</a>`);
+        appendMessage("🤖 HydraAI", `Here’s your free pad session:<br><a href="${products.glovesUp.freeTaster.link}" target="_blank">${products.glovesUp.freeTaster.name}</a>`);
       } else if (msg.includes("challenge")) {
-        appendMessage("🤖 HydraAI", `Here's the 7-Day Challenge:<br><a href="${products.noExcuseFitness.challenge.link}" target="_blank">${products.noExcuseFitness.challenge.name} – ${products.noExcuseFitness.challenge.price}</a>`);
-      } else if (msg.includes("6-week") || msg.includes("fighter plan")) {
-        appendMessage("🤖 HydraAI", `This is what you want:<br><a href="${products.noExcuseFitness.competePlan.link}" target="_blank">${products.noExcuseFitness.competePlan.name} – ${products.noExcuseFitness.competePlan.price}</a>`);
-      } else if (msg.includes("make money") || msg.includes("sell")) {
-        appendMessage("🤖 HydraAI", `You can join the Gloves Up Sales Team. Download the Sales Up Starter Pack:<br><a href="${products.salesUp.starterPack.link}" target="_blank">${products.salesUp.starterPack.name}</a>`);
+        appendMessage("🤖 HydraAI", `Start the 7-Day Challenge:<br><a href="${products.noExcuseFitness.challenge.link}" target="_blank">${products.noExcuseFitness.challenge.name} – ${products.noExcuseFitness.challenge.price}</a>`);
+      } else if (msg.includes("6-week") || msg.includes("fighter")) {
+        appendMessage("🤖 HydraAI", `Train like a fighter:<br><a href="${products.noExcuseFitness.competePlan.link}" target="_blank">${products.noExcuseFitness.competePlan.name} – ${products.noExcuseFitness.competePlan.price}</a>`);
+      } else if (msg.includes("money") || msg.includes("sell")) {
+        appendMessage("🤖 HydraAI", `Join the team:<br><a href="${products.salesUp.starterPack.link}" target="_blank">${products.salesUp.starterPack.name}</a>`);
       } else if (msg.includes("advanced") || msg.includes("master")) {
-        appendMessage("🤖 HydraAI", `You want the master seller tool:<br><a href="${products.salesUp.masterGuide.link}" target="_blank">${products.salesUp.masterGuide.name} – ${products.salesUp.masterGuide.price}</a>`);
+        appendMessage("🤖 HydraAI", `Go pro with the Sales Master Guide:<br><a href="${products.salesUp.masterGuide.link}" target="_blank">${products.salesUp.masterGuide.name} – ${products.salesUp.masterGuide.price}</a>`);
       } else if (msg.includes("hi") || msg.includes("hello")) {
-        appendMessage("🤖 HydraAI", `Hi! I'm here to help you book sessions, buy fitness plans, or join the business.`);
+        appendMessage("🤖 HydraAI", `Hey 👋 I’m here to help with sessions, products, or joining the movement.`);
       } else {
-        appendMessage("🤖 HydraAI", `I'm not sure yet – try asking about booking, taster, challenge, or selling.`);
+        appendMessage("🤖 HydraAI", `Not sure what you mean yet – try asking about "book", "challenge", or "make money".`);
       }
     }
   </script>
-
-  <style>
-    body {
-      font-family: 'Montserrat', sans-serif;
-      background: #0d0d0d;
-      color: #fff;
-      padding: 30px;
+</body>
+</html>
