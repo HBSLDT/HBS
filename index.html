@@ -245,6 +245,51 @@ a {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 </script>
+<!-- HYDRA AI CHATBOT BUBBLE -->
+<style>
+  #hydraChatBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9998;
+    background: #FFD700;
+    color: #000;
+    font-weight: bold;
+    padding: 12px 18px;
+    border-radius: 30px;
+    border: none;
+    box-shadow: 0 0 15px #FFD700;
+    cursor: pointer;
+    font-size: 0.95em;
+  }
+
+  #hydraChatFrame {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 360px;
+    height: 500px;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 0 20px #FFD700;
+    display: none;
+    z-index: 9999;
+  }
+</style>
+
+<button id="hydraChatBtn" onclick="toggleHydraChat()">💬 Chat to Hydra AI</button>
+
+<iframe id="hydraChatFrame"
+  src="https://hsb-ldt-site.netlify.app/hydra-ai"
+  title="Hydra AI Assistant">
+</iframe>
+
+<script>
+  function toggleHydraChat() {
+    const frame = document.getElementById("hydraChatFrame");
+    frame.style.display = frame.style.display === "none" ? "block" : "none";
+  }
+</script>
 
 </body>
 </html>
