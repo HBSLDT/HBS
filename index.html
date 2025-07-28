@@ -3,94 +3,98 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Hydra HQ Admin</title>
+  <title>Hydra HQ</title>
+  <link rel="apple-touch-icon" href="https://i.imgur.com/RZiglEM.png">
+  <link rel="icon" type="image/png" href="https://i.imgur.com/RZiglEM.png">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: Arial, sans-serif;
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
       background: #000;
-      color: #fff;
-      padding: 20px;
+      color: #eee;
+      padding: 0 20px;
     }
-    .login-container, .dashboard {
-      max-width: 500px;
-      margin: auto;
+    .section {
       background: #1a1a1a;
-      padding: 20px;
       border-radius: 10px;
+      padding: 20px;
+      margin: 30px auto;
+      max-width: 800px;
     }
-    input[type=text], input[type=password], button {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 6px;
-      border: none;
-    }
-    button {
-      background-color: #25d366;
-      color: white;
-      cursor: pointer;
-    }
-    .hidden { display: none; }
-    textarea {
-      width: 100%;
-      height: 100px;
-    }
+    .gloves { border: 2px solid #C0C0C0; }
+    .sales { border: 2px solid #FFD700; }
+    .nef { border: 2px solid #b76e79; }
+    .section h2 { text-align: center; margin-top: 0; }
   </style>
 </head>
 <body>
-  <div class="login-container" id="login">
-    <h2>Admin Login</h2>
-    <input type="text" id="username" placeholder="Username" />
-    <input type="password" id="password" placeholder="Password" />
-    <button onclick="login()">Login</button>
-    <p id="loginError" style="color:red;"></p>
-  </div>
 
-  <div class="dashboard hidden" id="dashboard">
-    <h2>Welcome, <span id="adminName"></span></h2>
+<header style="text-align:center; padding:40px 10px; background:#111; border:2px solid #FFD700; border-radius:10px; margin-top:20px;">
+  <img src="https://i.imgur.com/RZiglEM.png" alt="Hydra HQ Logo" style="max-width:160px; filter:drop-shadow(0 0 12px #FFD700);">
+  <h1 style="font-size:2.6em; margin:10px 0; background:linear-gradient(to right,#FFD700,#C0C0C0,#b76e79); -webkit-background-clip:text; color:transparent;">Hydra HQ</h1>
+  <p style="font-weight:bold; font-size:1em; color:#aaa;">Believe. Build. Become.</p>
+</header>
 
-    <h3>📊 Seller Stats</h3>
-    <textarea id="sellerStats" placeholder="Name | Code | Sales | Earnings"></textarea>
+<nav style="position:absolute; top:20px; right:20px; z-index:999;">
+  <button onclick="document.getElementById('dropdownMenu').style.display = (document.getElementById('dropdownMenu').style.display === 'block') ? 'none' : 'block';"
+    style="background:#FFD700; color:#000; padding:10px 14px; font-weight:bold; border:none; border-radius:6px; cursor:pointer;">
+    ☰ Menu
+  </button>
+</nav>
+<div id="dropdownMenu" style="display:none; background:#111; margin-top:10px; padding:15px; border-radius:10px; text-align:center; position:absolute; top:60px; right:20px; z-index:998;">
+  <a href="#gloves" style="display:block; color:#fff; padding:6px 0; text-decoration:none;">🥊 Gloves Up</a>
+  <a href="#sales" style="display:block; color:#fff; padding:6px 0; text-decoration:none;">💰 Sales Up</a>
+  <a href="#nef" style="display:block; color:#fff; padding:6px 0; text-decoration:none;">🔥 No Excuse Fitness</a>
+</div>
 
-    <h3>📄 Contract Upload</h3>
-    <input type="file" id="contractUpload" />
+<section id="gloves" class="section gloves">
+  <h2>🥊 Gloves Up Boxing</h2>
+  <p>One-to-one boxing sessions focused on building discipline, strength and skill. All times & tasters listed in WhatsApp group.</p>
+  <p style="color:#FFD700; font-weight:bold;">🔥 Free taster sessions + 50% off your first hourly session!</p>
+  <p><strong>💷 Price:</strong> £30/hour</p>
+  <a href="https://chat.whatsapp.com/GCt3mDikWIa9dlQyj9Isxy?mode=ac_t"
+     style="display:inline-block; margin-top:10px; padding:10px 20px; color:white; text-decoration:none; background:#25d366; border-radius:6px;">
+     📲 Book via WhatsApp
+  </a>
+</section>
 
-    <h3>🕒 Session Times</h3>
-    <textarea id="sessionEditor" placeholder="Add session time slots here"></textarea>
+<section id="sales" class="section sales">
+  <h2>💰 Sales Up</h2>
+  <p>Commission-based sales system for closers. Earn fast with tools & seller packs.</p>
+  <p><strong>📦 Starter Pack:</strong></p>
+  <a href="https://noexcusefit.gumroad.com/l/tizji" 
+     style="display:inline-block;margin-top:10px;padding:10px 20px;background:#FFD700;color:#000;text-decoration:none;border-radius:6px;">
+     Get Starter Pack
+  </a>
+  <br><br>
+  <p><strong>📖 Master Guide:</strong></p>
+  <a href="https://noexcusefit.gumroad.com/l/wownvr" 
+     style="display:inline-block;margin-top:10px;padding:10px 20px;background:#FFD700;color:#000;text-decoration:none;border-radius:6px;">
+     Get Master Guide
+  </a>
+</section>
 
-    <h3>🎚️ Taster Toggle</h3>
-    <button onclick="toggleTasters()">Toggle Taster Bookings</button>
-    <p id="tasterStatus">Tasters: ON</p>
-  </div>
+<section id="nef" class="section nef">
+  <h2>🔥 No Excuse Fitness</h2>
+  <p>Train anywhere with fast-result digital plans. No excuses, just results.</p>
+  <p><strong>🏋️‍♂️ 6-Week Boxing Plan:</strong></p>
+  <a href="https://noexcusefit.gumroad.com/l/lauiq" 
+     style="display:inline-block;margin-top:10px;padding:10px 20px;background:#b76e79;color:#fff;text-decoration:none;border-radius:6px;">
+     Buy Now
+  </a>
+  <br><br>
+  <p><strong>⚡ 7-Day Challenge:</strong></p>
+  <a href="https://noexcusefit.gumroad.com/l/hwtuj" 
+     style="display:inline-block;margin-top:10px;padding:10px 20px;background:#b76e79;color:#fff;text-decoration:none;border-radius:6px;">
+     Start Now
+  </a>
+</section>
 
-  <script>
-    const users = {
-      "owen": "admin123",
-      "reece": "reecepass",
-      "harley": "harleypass"
-    };
+<footer style="background:#111; color:#888; text-align:center; padding:30px 20px; font-size:0.9em; border-top:2px solid #444;">
+  Hydra HQ © 2025<br>
+  Powered by 🥊 Gloves Up • 💰 Sales Up • 🔥 NEF
+</footer>
 
-    function login() {
-      const user = document.getElementById("username").value.toLowerCase();
-      const pass = document.getElementById("password").value;
-
-      if (users[user] && users[user] === pass) {
-        document.getElementById("login").classList.add("hidden");
-        document.getElementById("dashboard").classList.remove("hidden");
-        document.getElementById("adminName").innerText = user.charAt(0).toUpperCase() + user.slice(1);
-      } else {
-        document.getElementById("loginError").innerText = "Invalid credentials";
-      }
-    }
-
-    function toggleTasters() {
-      const status = document.getElementById("tasterStatus");
-      if (status.innerText.includes("ON")) {
-        status.innerText = "Tasters: OFF";
-      } else {
-        status.innerText = "Tasters: ON";
-      }
-    }
-  </script>
 </body>
 </html>
