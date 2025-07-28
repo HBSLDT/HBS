@@ -290,6 +290,55 @@ a {
     frame.style.display = frame.style.display === "none" ? "block" : "none";
   }
 </script>
+<!-- 🔹 Floating Chat Button + Chat Window -->
+<style>
+  #hydraChatWidget {
+    display: none;
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 360px;
+    height: 500px;
+    z-index: 9999;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 0 20px #FFD700;
+  }
+
+  #hydraChatToggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #FFD700;
+    color: #000;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 18px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 99999;
+    box-shadow: 0 0 15px #FFD700;
+  }
+
+  #hydraChatToggle:hover {
+    background-color: #ffc400;
+  }
+</style>
+
+<button id="hydraChatToggle" onclick="toggleHydraChat()">💬 Chat to Hydra AI</button>
+
+<iframe
+  id="hydraChatWidget"
+  src="https://hsb-ldt-site.netlify.app/hydra-ai"
+  title="Hydra AI Chatbot">
+</iframe>
+
+<script>
+  function toggleHydraChat() {
+    const chatWidget = document.getElementById("hydraChatWidget");
+    chatWidget.style.display = (chatWidget.style.display === "none") ? "block" : "none";
+  }
+</script>
 
 </body>
 </html>
