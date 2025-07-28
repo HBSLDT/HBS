@@ -138,10 +138,10 @@
     const table = document.querySelector("#sellerTable tbody");
     const row = document.createElement("tr");
     row.innerHTML = `
-      <td contenteditable="true">Name</td>
-      <td contenteditable="true">Code</td>
-      <td contenteditable="true">0</td>
-      <td contenteditable="true">£0</td>
+      <td contenteditable="true" oninput="saveSellers()">Name</td>
+      <td contenteditable="true" oninput="saveSellers()">Code</td>
+      <td contenteditable="true" oninput="saveSellers()">0</td>
+      <td contenteditable="true" oninput="saveSellers()">£0</td>
       <td><button onclick="this.closest('tr').remove(); saveSellers()">Remove</button></td>
     `;
     table.appendChild(row);
@@ -171,10 +171,10 @@
       const table = document.querySelector("#sellerTable tbody");
       const row = document.createElement("tr");
       row.innerHTML = `
-        <td contenteditable="true">${data[0]}</td>
-        <td contenteditable="true">${data[1]}</td>
-        <td contenteditable="true">${data[2]}</td>
-        <td contenteditable="true">${data[3]}</td>
+        <td contenteditable="true" oninput="saveSellers()">${data[0]}</td>
+        <td contenteditable="true" oninput="saveSellers()">${data[1]}</td>
+        <td contenteditable="true" oninput="saveSellers()">${data[2]}</td>
+        <td contenteditable="true" oninput="saveSellers()">${data[3]}</td>
         <td><button onclick="this.closest('tr').remove(); saveSellers()">Remove</button></td>
       `;
       table.appendChild(row);
