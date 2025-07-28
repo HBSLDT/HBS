@@ -128,58 +128,13 @@
     if (users[u] && users[u] === p) {
       document.getElementById('login').classList.add('hidden');
       document.getElementById('adminPanel').classList.remove('hidden');
+      loadSellers();
     } else {
       alert("Invalid login");
     }
   }
 
   function addSeller() {
-  const table = document.querySelector("#sellerTable tbody");
-  const row = document.createElement("tr");
-  row.innerHTML = `
-    <td contenteditable="true">Name</td>
-    <td contenteditable="true">Code</td>
-    <td contenteditable="true">0</td>
-    <td contenteditable="true">£0</td>
-    <td><button onclick="this.closest('tr').remove(); saveSellers()">Remove</button></td>
-  `;
-  table.appendChild(row);
-  saveSellers();
-}
-
-function saveSellers() {
-  const rows = document.querySelectorAll("#sellerTable tbody tr");
-  const sellers = [];
-  rows.forEach(row => {
-    const cells = row.querySelectorAll("td");
-    if (cells.length >= 4) {
-      sellers.push([
-        cells[0].innerText,
-        cells[1].innerText,
-        cells[2].innerText,
-        cells[3].innerText
-      ]);
-    }
-  });
-  localStorage.setItem("hydraSellers", JSON.stringify(sellers));
-}
-
-function loadSellers() {
-  const sellers = JSON.parse(localStorage.getItem("hydraSellers") || "[]");
-  sellers.forEach(data => {
-    const table = document.querySelector("#sellerTable tbody");
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td contenteditable="true">${data[0]}</td>
-      <td contenteditable="true">${data[1]}</td>
-      <td contenteditable="true">${data[2]}</td>
-      <td contenteditable="true">${data[3]}</td>
-      <td><button onclick="this.closest('tr').remove(); saveSellers()">Remove</button></td>
-    `;
-    table.appendChild(row);
-  });
-}
-
     const table = document.querySelector("#sellerTable tbody");
     const row = document.createElement("tr");
     row.innerHTML = `
@@ -187,9 +142,43 @@ function loadSellers() {
       <td contenteditable="true">Code</td>
       <td contenteditable="true">0</td>
       <td contenteditable="true">£0</td>
-      <td><button onclick="this.closest('tr').remove()">Remove</button></td>
+      <td><button onclick="this.closest('tr').remove(); saveSellers()">Remove</button></td>
     `;
     table.appendChild(row);
+    saveSellers();
+  }
+
+  function saveSellers() {
+    const rows = document.querySelectorAll("#sellerTable tbody tr");
+    const sellers = [];
+    rows.forEach(row => {
+      const cells = row.querySelectorAll("td");
+      if (cells.length >= 4) {
+        sellers.push([
+          cells[0].innerText,
+          cells[1].innerText,
+          cells[2].innerText,
+          cells[3].innerText
+        ]);
+      }
+    });
+    localStorage.setItem("hydraSellers", JSON.stringify(sellers));
+  }
+
+  function loadSellers() {
+    const sellers = JSON.parse(localStorage.getItem("hydraSellers") || "[]");
+    sellers.forEach(data => {
+      const table = document.querySelector("#sellerTable tbody");
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td contenteditable="true">${data[0]}</td>
+        <td contenteditable="true">${data[1]}</td>
+        <td contenteditable="true">${data[2]}</td>
+        <td contenteditable="true">${data[3]}</td>
+        <td><button onclick="this.closest('tr').remove(); saveSellers()">Remove</button></td>
+      `;
+      table.appendChild(row);
+    });
   }
 
   function saveSessions() {
