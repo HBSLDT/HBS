@@ -3,138 +3,94 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Hydra HQ</title>
-  <meta name="description" content="Hydra HQ – Control the empire. Gloves Up, Sales Up, No Excuse Fitness.">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+  <title>Hydra HQ Admin</title>
   <style>
     body {
-      margin: 0;
-      font-family: 'Montserrat', sans-serif;
+      font-family: Arial, sans-serif;
       background: #000;
       color: #fff;
-    }
-
-    header {
-      background: #111;
       padding: 20px;
-      text-align: center;
-      border-bottom: 2px solid #FFD700;
     }
-
-    header h1 {
-      margin: 0;
-      font-size: 2em;
-      color: #FFD700;
-    }
-
-    nav {
-      text-align: center;
-      margin: 20px 0;
-    }
-
-    nav a {
-      margin: 0 15px;
-      text-decoration: none;
-      color: #FFD700;
-      font-weight: bold;
-    }
-
-    section {
-      padding: 40px 20px;
-      border-bottom: 1px solid #222;
-    }
-
-    .brand {
-      margin-bottom: 20px;
-    }
-
-    .brand h2 {
-      color: #FFD700;
-    }
-
-    footer {
-      background: #111;
-      text-align: center;
+    .login-container, .dashboard {
+      max-width: 500px;
+      margin: auto;
+      background: #1a1a1a;
       padding: 20px;
-      border-top: 2px solid #FFD700;
+      border-radius: 10px;
     }
-
-    /* Chat Button */
-    #hydraChatToggle {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #ffd700;
-      color: #000;
+    input[type=text], input[type=password], button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 6px;
       border: none;
-      padding: 12px 16px;
-      border-radius: 25px;
-      font-weight: bold;
-      box-shadow: 0 0 10px #000;
+    }
+    button {
+      background-color: #25d366;
+      color: white;
       cursor: pointer;
-      z-index: 10000;
     }
-
-    #hydraChatWidget {
-      position: fixed;
-      bottom: 70px;
-      right: 20px;
-      width: 360px;
-      height: 500px;
-      border: none;
-      border-radius: 12px;
-      box-shadow: 0 0 20px #ffd700;
-      display: none;
-      z-index: 9999;
+    .hidden { display: none; }
+    textarea {
+      width: 100%;
+      height: 100px;
     }
   </style>
 </head>
 <body>
+  <div class="login-container" id="login">
+    <h2>Admin Login</h2>
+    <input type="text" id="username" placeholder="Username" />
+    <input type="password" id="password" placeholder="Password" />
+    <button onclick="login()">Login</button>
+    <p id="loginError" style="color:red;"></p>
+  </div>
 
-  <header>
-    <h1>Hydra HQ</h1>
-    <p>Believe. Build. Become.</p>
-  </header>
+  <div class="dashboard hidden" id="dashboard">
+    <h2>Welcome, <span id="adminName"></span></h2>
 
-  <nav>
-    <a href="#glovesup">Gloves Up</a>
-    <a href="#salesup">Sales Up</a>
-    <a href="#noexcuse">No Excuse Fitness</a>
-  </nav>
+    <h3>📊 Seller Stats</h3>
+    <textarea id="sellerStats" placeholder="Name | Code | Sales | Earnings"></textarea>
 
-  <section id="glovesup" class="brand">
-    <h2>🥊 Gloves Up Boxing</h2>
-    <p>1:1 sessions, tasters & discipline training at Heart of Portsmouth. Run by top coaches.</p>
-  </section>
+    <h3>📄 Contract Upload</h3>
+    <input type="file" id="contractUpload" />
 
-  <section id="salesup" class="brand">
-    <h2>💰 Sales Up</h2>
-    <p>Earn money by selling Gloves Up sessions. Commission-based, easy to start.</p>
-  </section>
+    <h3>🕒 Session Times</h3>
+    <textarea id="sessionEditor" placeholder="Add session time slots here"></textarea>
 
-  <section id="noexcuse" class="brand">
-    <h2>🔥 No Excuse Fitness</h2>
-    <p>Boxing plans, digital fitness products, and fast-track programs sold on Gumroad.</p>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 Hydra HQ. All rights reserved.</p>
-  </footer>
-
-  <button id="hydraChatToggle" onclick="toggleHydraChat()">💬 Chat to Hydra AI</button>
-
-  <iframe
-    id="hydraChatWidget"
-    src="https://hydrahq-ai.netlify.app/"
-    title="Hydra AI Chatbot">
-  </iframe>
+    <h3>🎚️ Taster Toggle</h3>
+    <button onclick="toggleTasters()">Toggle Taster Bookings</button>
+    <p id="tasterStatus">Tasters: ON</p>
+  </div>
 
   <script>
-    function toggleHydraChat() {
-      const chatWidget = document.getElementById("hydraChatWidget");
-      chatWidget.style.display = (chatWidget.style.display === "none" || chatWidget.style.display === "") ? "block" : "none";
+    const users = {
+      "owen": "admin123",
+      "reece": "reecepass",
+      "harley": "harleypass"
+    };
+
+    function login() {
+      const user = document.getElementById("username").value.toLowerCase();
+      const pass = document.getElementById("password").value;
+
+      if (users[user] && users[user] === pass) {
+        document.getElementById("login").classList.add("hidden");
+        document.getElementById("dashboard").classList.remove("hidden");
+        document.getElementById("adminName").innerText = user.charAt(0).toUpperCase() + user.slice(1);
+      } else {
+        document.getElementById("loginError").innerText = "Invalid credentials";
+      }
+    }
+
+    function toggleTasters() {
+      const status = document.getElementById("tasterStatus");
+      if (status.innerText.includes("ON")) {
+        status.innerText = "Tasters: OFF";
+      } else {
+        status.innerText = "Tasters: ON";
+      }
     }
   </script>
-
 </body>
 </html>
