@@ -1,178 +1,149 @@
+<!-- HYDRA AI V2000 | Fully upgraded standalone version -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Hydra HQ</title>
-  <link rel="icon" href="https://i.imgur.com/RZiglEM.png">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hydra AI – Booking Assistant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Montserrat', sans-serif;
       margin: 0;
       background: #000;
-      color: #fff;
+      color: #eee;
+      font-family: 'Montserrat', sans-serif;
     }
-    header {
-      text-align: center;
-      padding: 50px 20px;
-      background: #111;
-    }
-    header h1 {
-      font-size: 2.6em;
+    .header {
       background: linear-gradient(to right, #FFD700, #C0C0C0, #b76e79);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-    header p {
-      color: #aaa;
-      font-weight: bold;
-    }
-    footer {
+      color: #000;
       text-align: center;
-      padding: 30px;
-      background: #111;
-      color: #888;
-      font-size: 0.9em;
+      padding: 40px 20px;
     }
-    #chatbotToggle {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      background: #25d366;
-      color: white;
-      border: none;
-      padding: 12px 18px;
-      font-size: 1em;
-      border-radius: 50px;
-      cursor: pointer;
-      box-shadow: 0 0 15px #25d366;
-      z-index: 999;
+    .header h1 {
+      margin: 0;
+      font-size: 2.8em;
     }
-    #chatbox {
-      display: none;
+    .header p {
+      font-weight: 600;
+    }
+    .chat-box {
       position: fixed;
       bottom: 90px;
-      right: 25px;
-      width: 300px;
-      max-height: 400px;
+      right: 30px;
       background: #1a1a1a;
-      border-radius: 10px;
-      box-shadow: 0 0 15px #FFD700;
-      overflow: hidden;
-      z-index: 998;
+      border: 2px solid #FFD700;
+      border-radius: 12px;
+      width: 340px;
+      max-height: 500px;
+      display: flex;
       flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 0 12px #FFD700;
+      z-index: 9999;
     }
-    #chatlog {
+    .chat-header {
+      background: #FFD700;
+      color: #000;
+      padding: 12px;
+      font-weight: bold;
+      text-align: center;
+    }
+    .chat-messages {
       flex: 1;
-      padding: 10px;
+      padding: 12px;
       overflow-y: auto;
       font-size: 0.95em;
     }
-    #userInput {
+    .chat-input {
+      border-top: 1px solid #444;
       display: flex;
-      border-top: 1px solid #333;
     }
-    #userInput input {
+    .chat-input input {
       flex: 1;
-      padding: 10px;
+      padding: 12px;
       border: none;
       outline: none;
       font-size: 1em;
-      background: #222;
+      background: #111;
       color: #fff;
     }
-    #userInput button {
+    .chat-input button {
       background: #FFD700;
       border: none;
-      color: #000;
-      padding: 10px 15px;
-      font-weight: bold;
+      padding: 12px 16px;
       cursor: pointer;
+      font-weight: bold;
     }
+    .chat-trigger {
+      position: fixed;
+      bottom: 20px;
+      right: 30px;
+      background: #FFD700;
+      color: #000;
+      padding: 12px 18px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      z-index: 9999;
+      box-shadow: 0 0 8px #FFD70088;
+    }
+    .user { color: #25d366; margin-bottom: 6px; }
+    .bot { color: #eee; margin-bottom: 10px; }
   </style>
 </head>
 <body>
-  <header>
-    <img src="https://i.imgur.com/RZiglEM.png" alt="Hydra Logo" style="width:100px;">
-    <h1>Hydra HQ</h1>
-    <p>Believe. Build. Become.</p>
-  </header>
+  <div class="header">
+    <h1>HydraAI</h1>
+    <p>Your 24/7 Booking + Product Assistant</p>
+  </div>
 
-  <main style="text-align:center; padding:50px 20px;">
-    <h2>Welcome to the Empire Control Center</h2>
-    <p>This is your fully automated booking and sales assistant — powered by HydraAI.</p>
-  </main>
-
-  <footer>
-    Hydra HQ © 2025<br>
-    Powered by Gloves Up • No Excuse Fitness
-  </footer>
-
-  <button id="chatbotToggle">💬 Chat to HydraAI</button>
-  <div id="chatbox">
-    <div id="chatlog"></div>
-    <div id="userInput">
-      <input type="text" id="message" placeholder="Ask me anything...">
+  <div id="chat" class="chat-box" style="display: none;">
+    <div class="chat-header">HydraAI – Ask Me Anything</div>
+    <div id="chatMessages" class="chat-messages"></div>
+    <div class="chat-input">
+      <input type="text" id="userInput" placeholder="Type here..." />
       <button onclick="sendMessage()">➤</button>
     </div>
   </div>
+  <div class="chat-trigger" onclick="toggleChat()">💬 Chat with HydraAI</div>
 
   <script>
-    const toggle = document.getElementById('chatbotToggle');
-    const chatbox = document.getElementById('chatbox');
-    const chatlog = document.getElementById('chatlog');
+    const chatMessages = document.getElementById("chatMessages");
+    const responses = {
+      "hi": "Hey there 👋! I'm HydraAI. Ask me about sessions, NEF plans, or Sales Up products!",
+      "price": "All 1:1 sessions are £30/hour. First session is 50% off + free tasters available.",
+      "book": "To book, just message us on WhatsApp: https://wa.me/447825954329",
+      "nef": "We have two NEF plans:",
+      "6-week": "📦 6-Week Fighter Plan – Get fight ready! Buy now: https://noexcusefit.gumroad.com/l/lauiq",
+      "7-day": "⚡ 7-Day Challenge – Start your journey fast: https://noexcusefit.gumroad.com/l/hwtuj",
+      "sales": "Join Sales Up and earn commission! Starter Pack: https://noexcusefit.gumroad.com/l/tizji",
+      "master": "💡 Our Sales Up Master Guide: https://noexcusefit.gumroad.com/l/wownvr",
+      "bye": "Talk soon 🥊! Message me again anytime."
+    };
 
-    toggle.addEventListener('click', () => {
-      chatbox.style.display = chatbox.style.display === 'flex' ? 'none' : 'flex';
-    });
+    function toggleChat() {
+      const box = document.getElementById("chat");
+      box.style.display = box.style.display === "none" ? "block" : "none";
+    }
 
     function sendMessage() {
-      const input = document.getElementById('message');
-      const text = input.value.trim();
-      if (!text) return;
-      appendMessage("You", text);
-      input.value = '';
-      respondToUser(text);
-    }
+      const input = document.getElementById("userInput");
+      const message = input.value.toLowerCase().trim();
+      if (!message) return;
 
-    function appendMessage(sender, text) {
-      const message = document.createElement('div');
-      message.innerHTML = `<strong>${sender}:</strong> ${text}`;
-      chatlog.appendChild(message);
-      chatlog.scrollTop = chatlog.scrollHeight;
-    }
+      chatMessages.innerHTML += `<div class='user'>You: ${message}</div>`;
 
-    function respondToUser(text) {
-      const response = getBotResponse(text.toLowerCase());
-      setTimeout(() => {
-        appendMessage("HydraAI", response);
-      }, 600);
-    }
+      let response = "Sorry, I didn't get that. Try asking about booking, NEF, or Sales Up.";
+      for (const keyword in responses) {
+        if (message.includes(keyword)) {
+          response = responses[keyword];
+          break;
+        }
+      }
 
-    function getBotResponse(input) {
-      if (input.includes("price") || input.includes("1:1")) {
-        return "🥊 1:1 sessions are £30/hour. First session is 50% off. Want to book?";
-      }
-      if (input.includes("6-week") || input.includes("compete")) {
-        return "🗓 Our 6-Week Boxing Plan gets you fight-ready fast. Buy here: https://noexcusefit.gumroad.com/l/lauiq";
-      }
-      if (input.includes("challenge") || input.includes("7-day")) {
-        return "⚡ Try the 7-Day Boxer Beast Challenge – a high-intensity intro plan: https://noexcusefit.gumroad.com/l/hwtuj";
-      }
-      if (input.includes("sales") || input.includes("starter")) {
-        return "💰 Want to sell for Gloves Up? Start here: https://noexcusefit.gumroad.com/l/tizji";
-      }
-      if (input.includes("master guide")) {
-        return "📖 Our Master Guide teaches you elite sales: https://noexcusefit.gumroad.com/l/wownvr";
-      }
-      if (input.includes("book") || input.includes("session") || input.includes("join")) {
-        return "📲 Message us now on WhatsApp: https://wa.me/447825954329";
-      }
-      if (input.includes("!admin")) {
-        return "🔐 Admin panel: [Access restricted]";
-      }
-      return "🤖 I’m HydraAI. Ask me anything about Gloves Up, No Excuse Fitness, or bookings!";
+      chatMessages.innerHTML += `<div class='bot'>HydraAI: ${response}</div>`;
+      input.value = "";
+      chatMessages.scrollTop = chatMessages.scrollHeight;
     }
   </script>
 </body>
