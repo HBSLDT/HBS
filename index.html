@@ -290,7 +290,7 @@ a {
     frame.style.display = frame.style.display === "none" ? "block" : "none";
   }
 </script>
-<!-- 🔹 Floating Chat Button + Chat Window -->
+<!-- 🔹 Hydra AI Chat Button + Widget -->
 <style>
   #hydraChatWidget {
     display: none;
@@ -336,7 +336,7 @@ a {
 <script>
   function toggleHydraChat() {
     const chatWidget = document.getElementById("hydraChatWidget");
-    chatWidget.style.display = (chatWidget.style.display === "none") ? "block" : "none";
+    chatWidget.style.display = (chatWidget.style.display === "none" || chatWidget.style.display === "") ? "block" : "none";
   }
 </script>
 
