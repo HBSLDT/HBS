@@ -1,150 +1,27 @@
-<!-- HYDRA AI V2000 | Fully upgraded standalone version -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hydra AI – Booking Assistant</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      background: #000;
-      color: #eee;
-      font-family: 'Montserrat', sans-serif;
-    }
-    .header {
-      background: linear-gradient(to right, #FFD700, #C0C0C0, #b76e79);
-      color: #000;
-      text-align: center;
-      padding: 40px 20px;
-    }
-    .header h1 {
-      margin: 0;
-      font-size: 2.8em;
-    }
-    .header p {
-      font-weight: 600;
-    }
-    .chat-box {
-      position: fixed;
-      bottom: 90px;
-      right: 30px;
-      background: #1a1a1a;
-      border: 2px solid #FFD700;
-      border-radius: 12px;
-      width: 340px;
-      max-height: 500px;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      box-shadow: 0 0 12px #FFD700;
-      z-index: 9999;
-    }
-    .chat-header {
-      background: #FFD700;
-      color: #000;
-      padding: 12px;
-      font-weight: bold;
-      text-align: center;
-    }
-    .chat-messages {
-      flex: 1;
-      padding: 12px;
-      overflow-y: auto;
-      font-size: 0.95em;
-    }
-    .chat-input {
-      border-top: 1px solid #444;
-      display: flex;
-    }
-    .chat-input input {
-      flex: 1;
-      padding: 12px;
-      border: none;
-      outline: none;
-      font-size: 1em;
-      background: #111;
-      color: #fff;
-    }
-    .chat-input button {
-      background: #FFD700;
-      border: none;
-      padding: 12px 16px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    .chat-trigger {
-      position: fixed;
-      bottom: 20px;
-      right: 30px;
-      background: #FFD700;
-      color: #000;
-      padding: 12px 18px;
-      border-radius: 30px;
-      cursor: pointer;
-      font-weight: bold;
-      z-index: 9999;
-      box-shadow: 0 0 8px #FFD70088;
-    }
-    .user { color: #25d366; margin-bottom: 6px; }
-    .bot { color: #eee; margin-bottom: 10px; }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hydra HQ – Home</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="header">
-    <h1>HydraAI</h1>
-    <p>Your 24/7 Booking + Product Assistant</p>
-  </div>
 
-  <div id="chat" class="chat-box" style="display: none;">
-    <div class="chat-header">HydraAI – Ask Me Anything</div>
-    <div id="chatMessages" class="chat-messages"></div>
-    <div class="chat-input">
-      <input type="text" id="userInput" placeholder="Type here..." />
-      <button onclick="sendMessage()">➤</button>
-    </div>
-  </div>
-  <div class="chat-trigger" onclick="toggleChat()">💬 Chat with HydraAI</div>
+  <header class="main-header">
+    <img src="https://i.imgur.com/RZiglEM.png" alt="Hydra Logo" class="logo">
+    <h1>Hydra HQ</h1>
+    <p class="slogan">Believe. Build. Become.</p>
+  </header>
 
-  <script>
-    const chatMessages = document.getElementById("chatMessages");
-    const responses = {
-      "hi": "Hey there 👋! I'm HydraAI. Ask me about sessions, NEF plans, or Sales Up products!",
-      "price": "All 1:1 sessions are £30/hour. First session is 50% off + free tasters available.",
-      "book": "To book, just message us on WhatsApp: https://wa.me/447825954329",
-      "nef": "We have two NEF plans:",
-      "6-week": "📦 6-Week Fighter Plan – Get fight ready! Buy now: https://noexcusefit.gumroad.com/l/lauiq",
-      "7-day": "⚡ 7-Day Challenge – Start your journey fast: https://noexcusefit.gumroad.com/l/hwtuj",
-      "sales": "Join Sales Up and earn commission! Starter Pack: https://noexcusefit.gumroad.com/l/tizji",
-      "master": "💡 Our Sales Up Master Guide: https://noexcusefit.gumroad.com/l/wownvr",
-      "bye": "Talk soon 🥊! Message me again anytime."
-    };
+  <main class="homepage-content">
+    <h2>Welcome to the Empire Control Center</h2>
+    <p>Explore Gloves Up Boxing and No Excuse Fitness products. HydraAI is online to help you choose, book, and buy instantly.</p>
+    <a href="https://chat.whatsapp.com/GCt3mDikWIa9dlQyj9Isxy?mode=ac_t" class="whatsapp-button">📲 Book on WhatsApp</a>
+  </main>
 
-    function toggleChat() {
-      const box = document.getElementById("chat");
-      box.style.display = box.style.display === "none" ? "block" : "none";
-    }
+  <!-- Floating Chatbot Button -->
+  <button id="chatbot-toggle" onclick="window.location.href='hydraai.html'">💬 Chat with HydraAI</button>
 
-    function sendMessage() {
-      const input = document.getElementById("userInput");
-      const message = input.value.toLowerCase().trim();
-      if (!message) return;
-
-      chatMessages.innerHTML += `<div class='user'>You: ${message}</div>`;
-
-      let response = "Sorry, I didn't get that. Try asking about booking, NEF, or Sales Up.";
-      for (const keyword in responses) {
-        if (message.includes(keyword)) {
-          response = responses[keyword];
-          break;
-        }
-      }
-
-      chatMessages.innerHTML += `<div class='bot'>HydraAI: ${response}</div>`;
-      input.value = "";
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-  </script>
 </body>
 </html>
