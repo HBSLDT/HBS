@@ -4,19 +4,62 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Hydra HQ</title>
+  <meta name="description" content="Hydra HQ – Control the empire. Gloves Up, Sales Up, No Excuse Fitness.">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #000;
+      font-family: 'Montserrat', sans-serif;
+      background: #000;
       color: #fff;
     }
 
-    .content {
-      padding: 40px;
+    header {
+      background: #111;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 2px solid #FFD700;
     }
 
-    /* Chat toggle button */
+    header h1 {
+      margin: 0;
+      font-size: 2em;
+      color: #FFD700;
+    }
+
+    nav {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #FFD700;
+      font-weight: bold;
+    }
+
+    section {
+      padding: 40px 20px;
+      border-bottom: 1px solid #222;
+    }
+
+    .brand {
+      margin-bottom: 20px;
+    }
+
+    .brand h2 {
+      color: #FFD700;
+    }
+
+    footer {
+      background: #111;
+      text-align: center;
+      padding: 20px;
+      border-top: 2px solid #FFD700;
+    }
+
+    /* Chat Button */
     #hydraChatToggle {
       position: fixed;
       bottom: 20px;
@@ -32,7 +75,6 @@
       z-index: 10000;
     }
 
-    /* Chat iframe */
     #hydraChatWidget {
       position: fixed;
       bottom: 70px;
@@ -49,24 +91,44 @@
 </head>
 <body>
 
-  <div class="content">
+  <header>
     <h1>Hydra HQ</h1>
     <p>Believe. Build. Become.</p>
-    <p>Welcome to your empire control center.</p>
-    <!-- More site content goes here -->
-  </div>
+  </header>
 
-  <!-- Toggle Chat Button -->
+  <nav>
+    <a href="#glovesup">Gloves Up</a>
+    <a href="#salesup">Sales Up</a>
+    <a href="#noexcuse">No Excuse Fitness</a>
+  </nav>
+
+  <section id="glovesup" class="brand">
+    <h2>🥊 Gloves Up Boxing</h2>
+    <p>1:1 sessions, tasters & discipline training at Heart of Portsmouth. Run by top coaches.</p>
+  </section>
+
+  <section id="salesup" class="brand">
+    <h2>💰 Sales Up</h2>
+    <p>Earn money by selling Gloves Up sessions. Commission-based, easy to start.</p>
+  </section>
+
+  <section id="noexcuse" class="brand">
+    <h2>🔥 No Excuse Fitness</h2>
+    <p>Boxing plans, digital fitness products, and fast-track programs sold on Gumroad.</p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Hydra HQ. All rights reserved.</p>
+  </footer>
+
   <button id="hydraChatToggle" onclick="toggleHydraChat()">💬 Chat to Hydra AI</button>
 
-  <!-- Embedded AI Chatbot -->
   <iframe
     id="hydraChatWidget"
     src="https://hydrahq-ai.netlify.app/"
     title="Hydra AI Chatbot">
   </iframe>
 
-  <!-- Chat Toggle Script -->
   <script>
     function toggleHydraChat() {
       const chatWidget = document.getElementById("hydraChatWidget");
